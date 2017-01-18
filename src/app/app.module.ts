@@ -4,16 +4,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
 
+import { PostsService } from './posts.service';
+
+
 const ROUTES = [
-  {
-    path: '',
-    redirectTo: 'posts',
-    pathMatch: 'full'
-  },
+  // {
+  //   path: '',
+  //   redirectTo: 'posts',
+  //   pathMatch: 'full'
+  // },
   {
     path: 'posts',
     component: PostsComponent
@@ -29,10 +31,10 @@ const ROUTES = [
     BrowserModule,
     ReactiveFormsModule,
     HttpModule,
-        RouterModule.forRoot(ROUTES) // Add routes to the app
+    RouterModule.forRoot(ROUTES) // Add routes to the app
 
   ],
-  providers: [],
+  providers: [PostsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
