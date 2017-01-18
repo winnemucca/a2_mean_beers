@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Beer = require('../models/beer_model');
-
-//const Beer = require('../models/beer_model.js'); WTF!
+const Beer = require('../../models/beer_model');
 
 //beer add file todo
 const _ = require('lodash');
