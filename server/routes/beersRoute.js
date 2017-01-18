@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-let Beer = require('../models/beer_model.js');
+const Beer = require('../models/beer_model');
+
+//const Beer = require('../models/beer_model.js'); WTF!
+
 //beer add file todo
 const _ = require('lodash');
 
@@ -12,16 +15,16 @@ router.post('/beer', (req, res) => {
     let newBeer = new Beer(req.body);
     newBeer.save(function(err) {
         if(err) {
-            res.json({info: 'error during find beers', error: err});
+            res.status(500).json({info: 'error during find beers', error: err});
         }
-        res.json({info: 'beer created successfully'});
+        res.status(200).json({info: 'beer created successfully'});
     });
 });
 
 router.get('/beer', (req, res) => {
     Beer.find(function(err, beers) {
         if(err) {
-            res.json({info: 'error during find beers', error: err})
+            res.status(500).json({info: 'error during find beers', error: err})
         };
         res.json({info: 'beers found successfully', data: beers})
     });
@@ -30,7 +33,7 @@ router.get('/beer', (req, res) => {
 router.get('/beer/:id', (req, res) => {
     Beer.find(function(err, beers) {
         if(err) {
-            res.json({
+            res.status(500).json({
                 info: 'error during find beers',
                 error: err
             });
@@ -59,7 +62,7 @@ router.put('/beer/:id', (req, res) => {
                 if(err) {
                     res.json({info: 'error during cat update', error: err});
                 }
-                res.json({info: 'cat updated successfully'});
+                res.status(200).json({info: 'beer updated successfully'});
             });
         }
         else {
