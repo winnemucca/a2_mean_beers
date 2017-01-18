@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost/beers');
 
 // Get our API routes
 const api = require('./server/routes/api');
-const beers = require('./server/routes/beersRoute')(app); //const beers = require('./server/routes/beersRoute')(app);
+const beersApi = require('./server/routes/beersRoute'); //const beers = require('./server/routes/beersRoute')(app);
 
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -24,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 // Set our api routes
 app.use('/api', api);
+app.use('/beersApi', beersApi);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
