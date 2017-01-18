@@ -1,9 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const mongoose = require('mongoose');
-
-let Beer = require('./beer_model.js');
+let Beer = require('../models/beer_model.js');
 //beer add file todo
 const _ = require('lodash');
 
@@ -33,7 +31,7 @@ router.get('/beer/:id', (req, res) => {
     Beer.find(function(err, beers) {
         if(err) {
             res.json({
-                info: 'error during find beers', 
+                info: 'error during find beers',
                 error: err
             });
         }
@@ -46,25 +44,38 @@ router.get('/beer/:id', (req, res) => {
     });
 });
 
-
+/*Update */
 router.put('/beer/:id', (req, res) => {
-    Beer.findById(req.params.id, function (req, res) {
+    Beer.findById(req.params.id, function (err, beer) {
         if(err) {
             res.json({
-                info: 'error during updating beers', 
+                info: 'error during updating beers',
                 error: err
             })
         }
+        if (beer) {
+            _.merge(beer, req.body);
+            beer.save(function(err) {
+                if(err) {
+                    res.json({info: 'error during cat update', error: err});
+                }
+                res.json({info: 'cat updated successfully'});
+            });
+        }
+        else {
+            res.json({info: 'cat not found'});
+        }
         res.json({info: 'beer updated successfully'})
     })
-    res.json({info: 'beer updated successfully'});
 });
 
 router.delete('/:id', (req, res) => {
-    _.remove(_beers, function(beer) {
-        return beer.name === req.params.id;
-    });
-    res.json('cat removed successfully');
+    Beer.findByIdAndRemove(req.params.id, function(err) {
+        if(err) {
+            res.json({info: 'error during remove cat', error: err});
+        }
+        res.json({info: 'cat removed successfully'});
+    })
 });
 
 module.exports = router;
