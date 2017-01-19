@@ -8,11 +8,14 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/beers');
+mongoose.connect('mongodb://localhost/beerApplication');
+// mongoose.connect('mongodb://localhost/27017/beerApplication');
+
 
 // Get our API routes
 const api = require('./server/routes/api');
 const beersApi = require('./server/routes/beersRoute'); 
+const userApi = require('./server/routes/userRoute');
 
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -25,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // Set our api routes
 app.use('/api', api);
 app.use('/beersApi', beersApi);
+app.use('/userApi', userApi);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {

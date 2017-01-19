@@ -6,35 +6,28 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
+import { UserComponent } from './user/user.component';
+import { AuthComponent } from './auth/auth.component';
+import { routing } from './app.routing';
 
 import { PostsService } from './posts.service';
-
-
-const ROUTES = [
-  // {
-  //   path: '',
-  //   redirectTo: 'posts',
-  //   pathMatch: 'full'
-  // },
-  {
-    path: 'posts',
-    component: PostsComponent
-  }
-];
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostsComponent
+    PostsComponent,
+    UserComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(ROUTES) // Add routes to the app
+    routing// Add routes to the app
 
   ],
-  providers: [PostsService],
+  providers: [PostsService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
